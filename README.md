@@ -1,4 +1,5 @@
 ## Fast typing test to see how fast you can type
+
 ## Try here: https://react-type.netlify.app/
 
 TODOS:
@@ -15,6 +16,6 @@ TODOS:
 - [x] Let typer choose between 30-50 word runs
 - [x] Add scrolling with better higlighter
 - [x] Setup react-type with astro
-- [ ] Add new pages like home page and last runs page
+- [x] Add new pages like home page and last runs page
 - [ ] Add a table on last runs page that shows all runs
 - [ ] Add a chart to analyze runs

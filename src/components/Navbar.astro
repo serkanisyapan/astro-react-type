@@ -1,0 +1,80 @@
+---
+import GithubIcon from "./GithubIcon.astro";
+import TwitterIcon from "./TwitterIcon.astro";
+---
+
+<header>
+  <nav>
+    <div class="nav-container">
+      <ul>
+        <li>
+          <a class="logo" href="/"
+            ><img src="../../public/assets/react-type.png" />
+            <p>React Type</p>
+          </a>
+        </li>
+      </ul>
+      <ul class="socials">
+        <li class="stats-link">
+          <a href="/stats">Stats</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/serkanisyapan/tier-list-astro"
+            target="_blank"><GithubIcon /></a
+          >
+        </li>
+        <li>
+          <a href="https://twitter.com/isyapan_serkan" target="_blank"
+            ><TwitterIcon /></a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<style>
+  nav {
+    padding: 14px 2rem;
+    background-color: #101820ff;
+  }
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+  }
+  li {
+    list-style: none;
+  }
+  .socials {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .stats-link {
+    margin-right: 20px;
+  }
+  .stats-link a {
+    color: rgba(254, 231, 21, 0.73);
+  }
+  .stats-link a:hover {
+    color: #fee715;
+  }
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    color: white;
+  }
+</style>

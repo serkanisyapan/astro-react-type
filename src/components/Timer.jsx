@@ -43,7 +43,9 @@ export const Timer = ({
       newTimer();
     }
     if (isGameOver) {
-      getLocalStorage("lastRuns", { keyStrokes, wrongLetters, seconds, WPM });
+      if (WPM > 0) {
+        getLocalStorage("lastRuns", { keyStrokes, wrongLetters, seconds, WPM });
+      }
       clearInterval(timerInterval.current);
     }
     if (timerReset) {
