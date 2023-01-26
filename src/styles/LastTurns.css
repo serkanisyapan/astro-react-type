@@ -1,0 +1,72 @@
+.table-columns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  color: #ffe715ff;
+}
+
+.table {
+  display: flex;
+  gap: 30px;
+}
+
+.main-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.runs-modal {
+  display: flex;
+  flex-direction: row;
+  gap: 35px;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  background-color: #2f2f2f;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  animation: slide-down 300ms ease-out forwards;
+  z-index: 99;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.no-turn {
+  color: white;
+  font-size: 24px;
+}
+
+.delete-turns {
+  align-self: flex-start;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffe715ff;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

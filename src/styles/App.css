@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fee715ff;
+}
+
+.type-container {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 70%;
+}
+
+.word-container {
+  margin-bottom: 20px;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 0;
+}
+
+.word-input {
+  border-radius: 2px;
+  font-family: "Roboto Mono", sans-serif;
+  padding: 1rem 0.5rem 1rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  width: 250px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.word-input:disabled {
+  cursor: not-allowed;
+}
+
+.input-container {
+  align-self: start;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.word-count-board {
+  font-size: 26px;
+}
+
+.scores {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.lastrun-text {
+  font-size: 20px;
+}
+
+.gametype {
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+}
+
+.lastrun-text:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

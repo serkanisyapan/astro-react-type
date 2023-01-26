@@ -1,0 +1,24 @@
+---
+import { App } from "../components/App";
+import "../styles/index.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>React Type</title>
+  </head>
+  <body>
+    <App client:load />
+  </body>
+</html>
+
+<style>
+  .type-container {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
