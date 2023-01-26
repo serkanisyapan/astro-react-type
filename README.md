@@ -17,4 +17,4 @@ TODOS:
 - [x] Setup react-type with astro
 - [ ] Add new pages like home page and last runs page
 - [ ] Add a table on last runs page that shows all runs
-= [ ] Add a chart to analyze runs
+- [ ] Add a chart to analyze runs
