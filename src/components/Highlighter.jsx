@@ -1,4 +1,4 @@
-export const Highlighter = ({ highlighter, wordCount, gameType }) => {
+export const Highlighter = ({ highlighter, wordCount, gameMode }) => {
   return (
     <div
       style={{
@@ -8,7 +8,7 @@ export const Highlighter = ({ highlighter, wordCount, gameType }) => {
         width: highlighter.width + "px",
         position: "absolute",
         backgroundColor:
-          wordCount === gameType ? "" : "rgba(255, 228, 23, 0.404)",
+          wordCount === gameMode ? "" : "rgba(255, 228, 23, 0.404)",
         transition: "all 0.2s ease-in-out",
       }}
     ></div>

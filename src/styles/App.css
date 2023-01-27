@@ -1,7 +1,7 @@
 html,
 body {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   color: #fee715ff;
 }
@@ -64,11 +64,11 @@ body {
   font-size: 20px;
 }
 
-.gametype {
+.gamemode {
+  display: flex;
   font-size: 18px;
   cursor: pointer;
-  display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 
 .lastrun-text:hover {

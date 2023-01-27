@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { getLocalStorage } from "../utils/getLocalStorage";
+import { getRunsDate } from "../utils/getRunsDate";
 import "../styles/Timer.css";
 
 export const Timer = ({
@@ -7,10 +8,13 @@ export const Timer = ({
   keyStrokes,
   wrongLetters,
   gameState,
+  gameMode,
 }) => {
   const [seconds, setSeconds] = useState(0);
   const [WPM, setWPM] = useState(0);
   const timerInterval = useRef(null);
+
+  const { netWPM, rawWPM } = WPM;
   const { isGameOver, isGameStarted, timerReset } = gameState;
 
   const newTimer = () => {
@@ -19,6 +23,7 @@ export const Timer = ({
       setSeconds((prev) => prev + 1);
     }, 1000);
   };
+  console.log(keyStrokes);
 
   const resetTimer = () => {
     setSeconds(0);
@@ -36,15 +41,24 @@ export const Timer = ({
   useEffect(() => {
     const getWPM = newWPM();
     setWPM(getWPM);
-  }, [seconds]);
+  }, [keyStrokes]);
 
   useEffect(() => {
     if (isGameStarted) {
       newTimer();
     }
     if (isGameOver) {
-      if (WPM > 0) {
-        getLocalStorage("lastRuns", { keyStrokes, wrongLetters, seconds, WPM });
+      if (netWPM > 0) {
+        const getRunDate = getRunsDate();
+        getLocalStorage("lastRuns", {
+          keyStrokes,
+          wrongLetters,
+          seconds,
+          netWPM,
+          rawWPM,
+          gameMode,
+          getRunDate,
+        });
       }
       clearInterval(timerInterval.current);
     }
@@ -55,8 +69,14 @@ export const Timer = ({
 
   return (
     <p className="timer">
-      {WPM < 0 ? <span>0 WPM</span> : <span>{WPM} WPM</span>}
       <span className="seconds">{seconds}s</span>
+      {isGameOver ? (
+        netWPM < 0 ? (
+          <span className="wpm">0 WPM</span>
+        ) : (
+          <span className="wpm">{netWPM} WPM</span>
+        )
+      ) : null}
     </p>
   );
 };

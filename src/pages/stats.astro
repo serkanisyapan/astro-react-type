@@ -1,8 +1,9 @@
 ---
+import { StatsTable } from "../components/StatsTable";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Stats";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <h1>Stats will be here</h1>
+  <StatsTable client:load />
 </BaseLayout>
