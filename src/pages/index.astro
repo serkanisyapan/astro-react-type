@@ -2,8 +2,9 @@
 import { App } from "../components/App";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "React Type";
+const showFooter = true
 ---
 
-<BaseLayout pageTite={pageTitle}>
+<BaseLayout pageTite={pageTitle} showFooter={showFooter}>
   <App client:only="react" />
 </BaseLayout>

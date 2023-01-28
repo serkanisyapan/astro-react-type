@@ -2,8 +2,9 @@
 import { StatsTable } from "../components/StatsTable";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Stats";
+const showFooter = false;
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} showFooter={showFooter}>
   <StatsTable client:load />
 </BaseLayout>

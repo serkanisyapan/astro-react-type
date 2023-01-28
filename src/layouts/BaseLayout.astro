@@ -1,10 +1,11 @@
 ---
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-const { pageTitle } = Astro.props;
 import "../styles/index.css";
+const { pageTitle, showFooter } = Astro.props;
 ---
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -16,6 +17,6 @@ import "../styles/index.css";
   <body>
     <Navbar />
     <slot />
-    <Footer />
+    {showFooter && <Footer />}
   </body>
 </html>

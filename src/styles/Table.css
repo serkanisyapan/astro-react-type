@@ -1,8 +1,13 @@
+.stats-table {
+  display: inline-block;
+  text-align: center;
+}
+
 .styled-table {
   border-collapse: collapse;
   width: 70%;
-  margin: 30px auto;
-  font-size: 18px;
+  margin: 35px auto;
+  font-size: 20px;
   font-family: sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
@@ -20,4 +25,13 @@
 
 .styled-table tbody tr:nth-of-type(even) {
   background-color: rgba(185, 48, 178, 0.443);
+}
+
+.load-more-btn {
+  width: 150px;
+  align-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: 0.25s;
 }

@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Table } from "./Table";
 
 export const StatsTable = () => {
-  const [lastRuns, setLastRuns] = useState();
+  const [lastRuns, setLastRuns] = useState([]);
   const columns = useMemo(() => [
     {
       Header: "All Runs",
@@ -32,7 +32,7 @@ export const StatsTable = () => {
           accessor: "gameMode",
         },
         {
-          Header: "run date",
+          Header: "date",
           accessor: "getRunDate",
         },
       ],
@@ -48,10 +48,12 @@ export const StatsTable = () => {
 
   return (
     <>
-      {lastRuns ? (
+      {lastRuns.length ? (
         <Table columns={columns} data={lastRuns} />
       ) : (
-        <div>loading...</div>
+        <div style={{ margin: "auto", fontSize: "24px" }}>
+          No runs in the record.
+        </div>
       )}
     </>
   );
