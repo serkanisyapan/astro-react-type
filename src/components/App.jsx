@@ -8,8 +8,8 @@ import { pickRandomWords } from "../utils/pickRandomWords.js";
 import { calculateWPM } from "../utils/calculateWPM.js";
 import "../styles/App.css";
 
-export const App = () => {
-  const [words, setWords] = useState([]);
+export const App = ({ randomWords }) => {
+  const [words, setWords] = useState(randomWords);
   const [userInput, setUserInput] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [keyStrokes, setKeyStrokes] = useState(0);
@@ -110,7 +110,6 @@ export const App = () => {
 
   // on page load creates new run
   useEffect(() => {
-    setWords(pickRandomWords(allWords, gameMode));
     focusRef.current.focus();
   }, []);
 
@@ -123,7 +122,9 @@ export const App = () => {
 
   // creates a new run when user changes game type
   useEffect(() => {
-    handlegameMode(gameMode);
+    if (gameMode !== 30) {
+      handlegameMode(gameMode);
+    }
   }, [gameMode]);
 
   return (

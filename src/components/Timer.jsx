@@ -23,7 +23,6 @@ export const Timer = ({
       setSeconds((prev) => prev + 1);
     }, 1000);
   };
-  console.log(keyStrokes);
 
   const resetTimer = () => {
     setSeconds(0);

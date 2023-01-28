@@ -1,10 +1,13 @@
 ---
 import { App } from "../components/App";
+import { allWords } from "../data/words";
+import { pickRandomWords } from "../utils/pickRandomWords";
 import BaseLayout from "../layouts/BaseLayout.astro";
+const randomWords = pickRandomWords(allWords, 30);
 const pageTitle = "React Type";
-const showFooter = true
+const showFooter = true;
 ---
 
 <BaseLayout pageTite={pageTitle} showFooter={showFooter}>
-  <App client:only="react" />
+  <App client:load randomWords={randomWords} />
 </BaseLayout>

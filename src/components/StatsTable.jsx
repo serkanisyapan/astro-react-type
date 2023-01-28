@@ -3,6 +3,7 @@ import { Table } from "./Table";
 
 export const StatsTable = () => {
   const [lastRuns, setLastRuns] = useState([]);
+  const [fetchedStorage, setFetchedStorage] = useState(false);
   const columns = useMemo(() => [
     {
       Header: "All Runs",
@@ -44,15 +45,24 @@ export const StatsTable = () => {
     if (getLastRuns) {
       setLastRuns(getLastRuns);
     }
+    setFetchedStorage(true);
   }, []);
 
   return (
     <>
-      {lastRuns.length ? (
+      {lastRuns.length > 0 ? (
         <Table columns={columns} data={lastRuns} />
+      ) : !fetchedStorage ? (
+        <div style={{ margin: "auto", fontSize: "24px" }}>
+          <img src="../../public/assets/LoadingSpinner.svg" />
+        </div>
       ) : (
         <div style={{ margin: "auto", fontSize: "24px" }}>
-          No runs in the record.
+          There no records. Do some{" "}
+          <a style={{ color: "white" }} href="/">
+            runs
+          </a>{" "}
+          to see your stats.
         </div>
       )}
     </>
