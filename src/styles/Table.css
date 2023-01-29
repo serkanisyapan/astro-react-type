@@ -5,7 +5,7 @@
 
 .styled-table {
   border-collapse: collapse;
-  width: 70%;
+  width: 80%;
   margin: 35px auto;
   font-size: 20px;
   font-family: sans-serif;
@@ -24,12 +24,13 @@
 }
 
 .styled-table tbody tr:nth-of-type(even) {
-  background-color: rgba(185, 48, 178, 0.443);
+  background-color: rgba(32, 48, 64, 0.557);
 }
 
 .load-more-btn {
   background-color: rgba(254, 231, 21, 0.608);
   border: none;
+  border-radius: 5px;
   color: black;
   padding: 10px 50px;
   text-align: center;
