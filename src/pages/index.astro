@@ -1,5 +1,5 @@
 ---
-import { App } from "../components/App";
+import { ReactType } from "../components/ReactType";
 import { allWords } from "../data/words";
 import { pickRandomWords } from "../utils/pickRandomWords";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -9,5 +9,5 @@ const showFooter = true;
 ---
 
 <BaseLayout pageTite={pageTitle} showFooter={showFooter}>
-  <App client:load randomWords={randomWords} />
+  <ReactType client:load randomWords={randomWords} />
 </BaseLayout>

@@ -4,11 +4,11 @@ import { Timer } from "./Timer.jsx";
 import { Highlighter } from "./Highlighter.jsx";
 import { NewRunButton } from "./NewRunButton.jsx";
 import { allWords } from "../data/words.js";
+import { gameModes } from "../data/gameModes.js";
 import { pickRandomWords } from "../utils/pickRandomWords.js";
-import { calculateWPM } from "../utils/calculateWPM.js";
 import "../styles/App.css";
 
-export const App = ({ randomWords }) => {
+export const ReactType = ({ randomWords }) => {
   const [words, setWords] = useState(randomWords);
   const [userInput, setUserInput] = useState("");
   const [wordCount, setWordCount] = useState(0);
@@ -110,6 +110,7 @@ export const App = ({ randomWords }) => {
 
   // on page load creates new run
   useEffect(() => {
+    setWords(pickRandomWords(allWords, gameMode));
     focusRef.current.focus();
   }, []);
 
@@ -122,9 +123,7 @@ export const App = ({ randomWords }) => {
 
   // creates a new run when user changes game type
   useEffect(() => {
-    if (gameMode !== 30) {
-      handlegameMode(gameMode);
-    }
+    handlegameMode(gameMode);
   }, [gameMode]);
 
   return (
@@ -133,19 +132,17 @@ export const App = ({ randomWords }) => {
         <div className="scores">
           <span className="word-count-board">{typedWordCount}</span>
           <span className="gamemode">
-            <span
-              onClick={() => setGameMode(30)}
-              style={{ color: gameMode === 30 ? "#fee7158a" : "" }}
-            >
-              30
-            </span>
-            |
-            <span
-              onClick={() => setGameMode(50)}
-              style={{ color: gameMode === 50 ? "#fee7158a" : "" }}
-            >
-              50
-            </span>
+            {gameModes.map((mode, modeID) => (
+              <span
+                key={modeID}
+                onClick={() => setGameMode(mode.mode)}
+                style={{
+                  color: gameMode === mode.mode ? "#fee7158a" : `${mode.color}`,
+                }}
+              >
+                {mode.mode}
+              </span>
+            ))}
           </span>
         </div>
         <div ref={scrollRef} className="word-container">
@@ -174,11 +171,10 @@ export const App = ({ randomWords }) => {
             disabled={gameState.isGameOver ? true : false}
           />
           <Timer
-            calculateWPM={calculateWPM}
+            gameMode={gameMode}
             keyStrokes={keyStrokes}
             gameState={gameState}
             wrongLetters={wrongLetters}
-            gameMode={gameMode}
           />
         </div>
         <NewRunButton newRun={newRun} />

@@ -1,15 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { getLocalStorage } from "../utils/getLocalStorage";
 import { getRunsDate } from "../utils/getRunsDate";
+import { calculateWPM } from "../utils/calculateWPM.js";
 import "../styles/Timer.css";
 
-export const Timer = ({
-  calculateWPM,
-  keyStrokes,
-  wrongLetters,
-  gameState,
-  gameMode,
-}) => {
+export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
   const [seconds, setSeconds] = useState(0);
   const [WPM, setWPM] = useState(0);
   const timerInterval = useRef(null);
