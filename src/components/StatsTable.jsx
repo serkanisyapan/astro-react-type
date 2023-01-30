@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { StatsChart } from "./StatsChart";
 import { Table } from "./Table";
-import "../styles/StatsTable.css";
 
 export const StatsTable = () => {
   const [lastRuns, setLastRuns] = useState([]);
@@ -50,14 +49,15 @@ export const StatsTable = () => {
     setFetchedStorage(true);
   }, []);
 
-  const get20Runs = lastRuns.slice(0, 20).reverse();
+  const reverseLastRuns = lastRuns.slice().reverse();
+  console.log(reverseLastRuns);
 
   return (
     <>
       {lastRuns.length > 0 ? (
         <>
-          <StatsChart data={get20Runs} />
-          <Table columns={columns} data={lastRuns} />
+          <StatsChart data={lastRuns} />
+          <Table columns={columns} data={reverseLastRuns} />
         </>
       ) : !fetchedStorage ? (
         <div style={{ margin: "auto", fontSize: "24px" }}>

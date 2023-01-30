@@ -19,4 +19,4 @@ TODOS:
 - [x] Add new pages like home page and last runs page
 - [x] Add a table on last runs page that shows all runs
 - [x] Add pagination, sorting to table
-- [ ] Add a chart to analyze previous runs
+- [x] Add a chart to analyze previous runs
