@@ -93,6 +93,7 @@ export const ReactType = ({ randomWords }) => {
     setKeyStrokes(0);
     setWrongLetters(0);
     setWords(pickRandomWords(allWords, gameMode));
+    focusRef.current.disabled = false;
     focusRef.current.focus();
   };
 
