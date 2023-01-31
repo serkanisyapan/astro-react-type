@@ -7,7 +7,7 @@ export const NewRunButton = ({ newRun }) => {
       <button onClick={newRun} className="refresh-button">
         <img src={newRunLogo} alt="new turn button" />
       </button>
-      <span className="run-tooltip">CTRL+R</span>
+      <span className="run-tooltip">Tab + Enter</span>
     </div>
   );
 };

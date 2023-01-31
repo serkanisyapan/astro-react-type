@@ -11,7 +11,6 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: all 0.4s ease-in-out;
   display: flex;
 }
 
@@ -30,6 +29,12 @@
 
 .refresh-button:hover {
   transform: rotate(360deg);
+}
+
+.refresh-button:focus {
+  outline: 15px solid #a9c5e18e;
+  border-radius: 3px;
+  background-color: #a9c5e18e;
 }
 
 .button-container:hover span {

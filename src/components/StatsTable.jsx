@@ -50,7 +50,6 @@ export const StatsTable = () => {
   }, []);
 
   const reverseLastRuns = lastRuns.slice().reverse();
-  console.log(reverseLastRuns);
 
   return (
     <>

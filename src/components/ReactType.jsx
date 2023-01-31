@@ -70,11 +70,6 @@ export const ReactType = ({ randomWords }) => {
     } else {
       setKeyStrokes((prev) => prev + 1);
     }
-
-    if (event.ctrlKey && event.key === "r") {
-      event.preventDefault();
-      newRun();
-    }
   };
 
   // when typer starts typing timer starts
