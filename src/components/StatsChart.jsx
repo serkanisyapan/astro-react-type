@@ -4,7 +4,7 @@ import { Line } from "react-chartjs-2";
 
 export const StatsChart = ({ data }) => {
   return (
-    <div style={{ width: "80%", margin: "100px auto" }}>
+    <div style={{ width: "80%", margin: "80px auto" }}>
       <Line
         datasetIdKey="id"
         width={700}
@@ -16,6 +16,39 @@ export const StatsChart = ({ data }) => {
             intersect: false,
           },
           plugins: {
+            tooltip: {
+              padding: 7,
+              bodySpacing: 5,
+              bodyFont: {
+                size: 14,
+              },
+              footerFont: {
+                size: 14,
+              },
+              callbacks: {
+                afterBody: function (context) {
+                  const grabData = data[context[0].dataIndex];
+                  let label =
+                    `rawWPM: ${grabData.rawWPM}` +
+                    "\n" +
+                    `seconds: ${grabData.seconds}` +
+                    "\n" +
+                    `totalChars: ${grabData.keyStrokes}` +
+                    "\n" +
+                    `wrongChars:${grabData.wrongLetters}` +
+                    "\n" +
+                    `gameMode:${grabData.gameMode} words`;
+                  return label;
+                },
+                beforeFooter: function (context) {
+                  let footerLabel =
+                    `==============` +
+                    "\n" +
+                    `date: ${data[context[0].dataIndex].getRunDate}`;
+                  return footerLabel;
+                },
+              },
+            },
             title: {
               display: true,
               text: "All Runs",
@@ -43,12 +76,6 @@ export const StatsChart = ({ data }) => {
         data={{
           labels: data.map((run, runID) => `run ${runID + 1}`),
           datasets: [
-            {
-              label: "rawWPM",
-              data: data.map((run, runID) => run.rawWPM),
-              borderColor: "#d82bd2",
-              backgroundColor: "#d82bd2",
-            },
             {
               label: "netWPM",
               data: data.map((run, runID) => run.netWPM),
