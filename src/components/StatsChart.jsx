@@ -14,6 +14,7 @@ export const StatsChart = ({ data }) => {
             mode: "index",
             intersect: false,
           },
+          tension: 0.3,
           plugins: {
             tooltip: {
               padding: 7,
@@ -55,10 +56,9 @@ export const StatsChart = ({ data }) => {
                 display: false,
               },
             },
-            y: {
-              ticks: {
-                stepSize: 10,
-              },
+            netWPM: {
+              axis: "y",
+              min: 0,
               beginAtZero: true,
               position: "left",
               title: {
@@ -76,6 +76,20 @@ export const StatsChart = ({ data }) => {
               data: data.map((run, runID) => run.netWPM),
               borderColor: "#fee715",
               backgroundColor: "#fee715",
+              yAxisID: "netWPM",
+              pointRadius: (context) => {
+                const allData = context.dataset.data;
+                const maxValue = Math.max(...allData);
+                const pointsArray = [];
+                for (let i = 0; i < allData.length; i++) {
+                  if (allData[i] === maxValue) {
+                    pointsArray.push(6);
+                  } else {
+                    pointsArray.push(4);
+                  }
+                }
+                return pointsArray;
+              },
             },
           ],
         }}
