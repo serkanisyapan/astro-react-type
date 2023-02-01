@@ -35,7 +35,7 @@ export const StatsTable = () => {
         },
         {
           Header: "date",
-          accessor: "getRunDate",
+          accessor: "runDate",
         },
       ],
     },

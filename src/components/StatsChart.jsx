@@ -8,7 +8,6 @@ export const StatsChart = ({ data }) => {
       <Line
         datasetIdKey="id"
         width={700}
-        heigth={400}
         options={{
           responsive: true,
           interaction: {
@@ -33,18 +32,14 @@ export const StatsChart = ({ data }) => {
                     "\n" +
                     `seconds: ${grabData.seconds}` +
                     "\n" +
-                    `totalChars: ${grabData.keyStrokes}` +
-                    "\n" +
-                    `wrongChars:${grabData.wrongLetters}` +
-                    "\n" +
-                    `gameMode:${grabData.gameMode} words`;
+                    `wrongChars:${grabData.wrongLetters}`;
                   return label;
                 },
                 beforeFooter: function (context) {
                   let footerLabel =
                     `==============` +
                     "\n" +
-                    `date: ${data[context[0].dataIndex].getRunDate}`;
+                    `date: ${data[context[0].dataIndex].runDate}`;
                   return footerLabel;
                 },
               },

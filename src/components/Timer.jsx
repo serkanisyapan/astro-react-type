@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import Confetti from "react-confetti";
 import { getLocalStorage } from "../utils/getLocalStorage";
 import { getRunsDate } from "../utils/getRunsDate";
 import { calculateWPM } from "../utils/calculateWPM.js";
@@ -7,6 +8,8 @@ import "../styles/Timer.css";
 export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
   const [seconds, setSeconds] = useState(0);
   const [WPM, setWPM] = useState(0);
+  const [popConfetti, setPopConfetti] = useState(false);
+  const [windowDimension, setWindowDimension] = useState({});
   const timerInterval = useRef(null);
 
   const { netWPM, rawWPM } = WPM;
@@ -21,6 +24,7 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
 
   const resetTimer = () => {
     setSeconds(0);
+    setPopConfetti(false);
     clearInterval(timerInterval.current);
   };
 
@@ -31,6 +35,26 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
       return calculateWPM(keyStrokes, seconds, wrongLetters);
     }
   };
+
+  const getHighestWPM = (newRunWPM) => {
+    const localstorage = JSON.parse(localStorage.getItem("lastRuns")) || [];
+    const sortAllWPM = localstorage
+      .map((runs) => runs.netWPM)
+      .sort((a, b) => b - a);
+    if (localstorage.length === 0 || newRunWPM > sortAllWPM[0]) {
+      setPopConfetti(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowDimension({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    });
+    return () => window.removeEventListener("resize");
+  }, []);
 
   useEffect(() => {
     const getWPM = newWPM();
@@ -43,7 +67,8 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
     }
     if (isGameOver) {
       if (netWPM > 0) {
-        const getRunDate = getRunsDate();
+        const runDate = getRunsDate();
+        getHighestWPM(netWPM);
         getLocalStorage("lastRuns", {
           keyStrokes,
           wrongLetters,
@@ -51,7 +76,7 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
           netWPM,
           rawWPM,
           gameMode,
-          getRunDate,
+          runDate,
         });
       }
       clearInterval(timerInterval.current);
@@ -62,15 +87,25 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
   }, [isGameOver, timerReset, isGameStarted]);
 
   return (
-    <p className="timer">
-      <span className="seconds">{seconds}s</span>
-      {isGameOver ? (
-        netWPM < 0 ? (
-          <span className="wpm">0 WPM</span>
-        ) : (
-          <span className="wpm">{netWPM} WPM</span>
-        )
+    <>
+      {popConfetti ? (
+        <Confetti
+          width={windowDimension.width}
+          height={windowDimension.height}
+          recycle="false"
+          tweenDuration={2000}
+        />
       ) : null}
-    </p>
+      <p className="timer">
+        <span className="seconds">{seconds}s</span>
+        {isGameOver ? (
+          netWPM < 0 ? (
+            <span className="wpm">0 WPM</span>
+          ) : (
+            <span className="wpm">{netWPM} WPM</span>
+          )
+        ) : null}
+      </p>
+    </>
   );
 };
