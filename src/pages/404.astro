@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Page Not Found";
+import image404 from "../images/404image.jpg";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <img
     class="image-404"
     alt="a car that has 404 written on it"
-    src="../../public/assets/404image.jpg"
+    src={image404}
   />
   <h2 class="not-found">Page Not Found...</h2>
 </BaseLayout>

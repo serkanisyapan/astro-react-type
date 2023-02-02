@@ -1,4 +1,4 @@
-import newRunLogo from "../../public/assets/new-run-button.svg";
+import newRunLogo from "../images/new-run-button.svg";
 import "../styles/NewRunButton.css";
 
 export const NewRunButton = ({ newRun }) => {

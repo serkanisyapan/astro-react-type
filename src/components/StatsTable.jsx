@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { StatsChart } from "./StatsChart";
 import { Table } from "./Table";
+import loadingSpinner from "../images/LoadingSpinner.svg";
 
 export const StatsTable = () => {
   const [lastRuns, setLastRuns] = useState([]);
@@ -60,7 +61,7 @@ export const StatsTable = () => {
         </>
       ) : !fetchedStorage ? (
         <div style={{ margin: "auto", fontSize: "24px" }}>
-          <img src="../../public/assets/LoadingSpinner.svg" />
+          <img src={loadingSpinner} />
         </div>
       ) : (
         <div style={{ margin: "auto", fontSize: "24px" }}>
