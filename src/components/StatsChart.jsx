@@ -77,36 +77,31 @@ export const StatsChart = ({ data }) => {
               borderColor: "#fee715",
               backgroundColor: "#fee715",
               yAxisID: "netWPM",
-              pointStyle: (context) => {
-                const allData = context.dataset.data;
-                const maxValue = Math.max(...allData);
-                const pointsArray = [];
-                for (let i = 0; i < allData.length; i++) {
-                  if (allData[i] === maxValue) {
-                    pointsArray.push("star");
-                  } else {
-                    pointsArray.push("circle");
-                  }
-                }
-                return pointsArray;
-              },
-              pointRadius: (context) => {
-                const allData = context.dataset.data;
-                const maxValue = Math.max(...allData);
-                const pointsArray = [];
-                for (let i = 0; i < allData.length; i++) {
-                  if (allData[i] === maxValue) {
-                    pointsArray.push(10);
-                  } else {
-                    pointsArray.push(4);
-                  }
-                }
-                return pointsArray;
-              },
+              pointRadius: (context) => linePointStyling(context, "radius"),
+              pointStyle: (context) => linePointStyling(context, "style"),
             },
           ],
         }}
       />
     </div>
   );
+};
+
+const linePointStyling = (context, stylingOption) => {
+  const allData = context.dataset.data;
+  const findMaxValue = Math.max(...allData);
+  const pointsArray = [];
+  for (let i = 0; i < allData.length; i++) {
+    const isMaxValue = allData[i] === findMaxValue;
+    if (isMaxValue) {
+      stylingOption === "style"
+        ? pointsArray.push("star")
+        : pointsArray.push(10);
+    } else {
+      stylingOption === "style"
+        ? pointsArray.push("circle")
+        : pointsArray.push(4);
+    }
+  }
+  return pointsArray;
 };

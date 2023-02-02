@@ -106,6 +106,8 @@ export const ReactType = ({ randomWords }) => {
 
   // on page load creates new run
   useEffect(() => {
+    const getGameMode = JSON.parse(localStorage.getItem("gameMode"));
+    if (getGameMode) setGameMode(getGameMode);
     focusRef.current.focus();
   }, []);
 
@@ -119,61 +121,60 @@ export const ReactType = ({ randomWords }) => {
   // creates a new run when user changes game type
   useEffect(() => {
     handlegameMode(gameMode);
+    JSON.stringify(localStorage.setItem("gameMode", gameMode));
   }, [gameMode]);
 
   return (
-    <>
-      <div className="type-container">
-        <div className="scores">
-          <span className="word-count-board">{typedWordCount}</span>
-          <span className="gamemode">
-            {gameModes.map((mode, modeID) => (
-              <span
-                key={modeID}
-                onClick={() => setGameMode(mode.mode)}
-                style={{
-                  color: gameMode === mode.mode ? "#fee7158a" : `${mode.color}`,
-                }}
-              >
-                {mode.mode}
-              </span>
-            ))}
-          </span>
-        </div>
-        <div ref={scrollRef} className="word-container">
-          <Highlighter
-            highlighter={highlighter}
-            gameMode={gameMode}
-            wordCount={wordCount}
-          />
-          {words.map((word, wordID) => (
-            <Word
-              key={wordID}
-              word={word}
-              wordID={wordID}
-              wordCount={wordCount}
-              wordHighlighter={highlighterPosition}
-            />
+    <div className="type-container">
+      <div className="scores">
+        <span className="word-count-board">{typedWordCount}</span>
+        <span className="gamemode">
+          {gameModes.map((mode, modeID) => (
+            <span
+              key={modeID}
+              onClick={() => setGameMode(mode.mode)}
+              style={{
+                color: gameMode === mode.mode ? "#fee7158a" : `${mode.color}`,
+              }}
+            >
+              {mode.mode}
+            </span>
           ))}
-        </div>
-        <div className="input-container">
-          <input
-            ref={focusRef}
-            className="word-input"
-            value={userInput}
-            onKeyDown={handleKeyDown}
-            onChange={handleOnChange}
-            disabled={gameState.isGameOver ? true : false}
-          />
-          <Timer
-            gameMode={gameMode}
-            keyStrokes={keyStrokes}
-            gameState={gameState}
-            wrongLetters={wrongLetters}
-          />
-        </div>
-        <NewRunButton newRun={newRun} />
+        </span>
       </div>
-    </>
+      <div ref={scrollRef} className="word-container">
+        <Highlighter
+          highlighter={highlighter}
+          gameMode={gameMode}
+          wordCount={wordCount}
+        />
+        {words.map((word, wordID) => (
+          <Word
+            key={wordID}
+            word={word}
+            wordID={wordID}
+            wordCount={wordCount}
+            wordHighlighter={highlighterPosition}
+          />
+        ))}
+      </div>
+      <div className="input-container">
+        <input
+          ref={focusRef}
+          className="word-input"
+          value={userInput}
+          onKeyDown={handleKeyDown}
+          onChange={handleOnChange}
+          disabled={gameState.isGameOver ? true : false}
+        />
+        <Timer
+          gameMode={gameMode}
+          keyStrokes={keyStrokes}
+          gameState={gameState}
+          wrongLetters={wrongLetters}
+        />
+      </div>
+      <NewRunButton newRun={newRun} />
+    </div>
   );
 };
