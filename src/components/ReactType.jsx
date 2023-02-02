@@ -106,7 +106,6 @@ export const ReactType = ({ randomWords }) => {
 
   // on page load creates new run
   useEffect(() => {
-    setWords(pickRandomWords(allWords, gameMode));
     focusRef.current.focus();
   }, []);
 

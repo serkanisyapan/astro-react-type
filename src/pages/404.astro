@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Page Not Found";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <img
+    class="image-404"
+    alt="a car that has 404 written on it"
+    src="../../public/assets/404image.jpg"
+  />
+  <h2 class="not-found">Page Not Found...</h2>
+</BaseLayout>
+
+<style>
+  .image-404 {
+    width: 800px;
+    height: 400px;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+
+  .not-found {
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+</style>
