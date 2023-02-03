@@ -11,8 +11,8 @@ export const Word = ({ word, wordID, wordCount, wordHighlighter }) => {
       scrollToWord.current.scrollIntoView({
         behavior: "smooth",
       });
-      const {offsetTop, offsetLeft, offsetWidth, offsetHeight} = scrollToWord.current
-      wordHighlighter(offsetTop, offsetLeft, offsetWidth, offsetHeight);
+      const {offsetTop, offsetLeft, offsetWidth} = scrollToWord.current
+      wordHighlighter(offsetTop, offsetLeft, offsetWidth, 49);
     }
   }, [wordCount, word]);
 
