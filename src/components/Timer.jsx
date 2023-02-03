@@ -13,7 +13,6 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
   const timerInterval = useRef(null);
 
   const { netWPM, rawWPM } = WPM;
-  const { isGameOver, isGameStarted, timerReset } = gameState;
 
   const newTimer = () => {
     clearInterval(timerInterval.current);
@@ -62,10 +61,10 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
   }, [keyStrokes]);
 
   useEffect(() => {
-    if (isGameStarted) {
+    if (gameState === "typing") {
       newTimer();
     }
-    if (isGameOver) {
+    if (gameState === "runIsOver") {
       if (netWPM > 0) {
         const runDate = getRunsDate();
         getHighestWPM(netWPM);
@@ -81,10 +80,17 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
       }
       clearInterval(timerInterval.current);
     }
-    if (timerReset) {
+    if (gameState === "timerReset") {
       resetTimer();
     }
-  }, [isGameOver, timerReset, isGameStarted]);
+  }, [gameState]);
+
+  let timerContent;
+  if (gameState === "runIsOver" && netWPM < 0) {
+    timerContent = <span className="wpm">0 WPM</span>;
+  } else if (gameState === "runIsOver" && netWPM > 0) {
+    timerContent = <span className="wpm">{netWPM} WPM</span>;
+  }
 
   return (
     <>
@@ -92,20 +98,12 @@ export const Timer = ({ keyStrokes, wrongLetters, gameState, gameMode }) => {
         <Confetti
           width={windowDimension.width}
           height={windowDimension.height}
-          recycle="false"
-          tweenDuration={2000}
         />
       ) : null}
-      <p className="timer">
+      <span className="timer">
         <span className="seconds">{seconds}s</span>
-        {isGameOver ? (
-          netWPM < 0 ? (
-            <span className="wpm">0 WPM</span>
-          ) : (
-            <span className="wpm">{netWPM} WPM</span>
-          )
-        ) : null}
-      </p>
+        {timerContent}
+      </span>
     </>
   );
 };

@@ -16,11 +16,7 @@ export const ReactType = ({ randomWords }) => {
   const [gameMode, setGameMode] = useState(30);
   const [wrongLetters, setWrongLetters] = useState(0);
   const [highlighter, setHighlighter] = useState({});
-  const [gameState, setGameState] = useState({
-    isGameOver: false,
-    isGameStarted: false,
-    timerReset: false,
-  });
+  const [gameState, setGameState] = useState("");
   const focusRef = useRef(null);
   const scrollRef = useRef(null);
 
@@ -75,8 +71,8 @@ export const ReactType = ({ randomWords }) => {
   // when typer starts typing timer starts
   const handleOnChange = (event) => {
     setUserInput(event.target.value);
-    if (!gameState.isGameStarted) {
-      setGameState({ ...gameState, isGameStarted: true, timerReset: false });
+    if (!gameState || gameState === "timerReset") {
+      setGameState("typing");
     }
   };
 
@@ -84,7 +80,7 @@ export const ReactType = ({ randomWords }) => {
   const newRun = () => {
     setWordCount(0);
     setUserInput("");
-    setGameState({ isGameStarted: false, isGameOver: false, timerReset: true });
+    setGameState("timerReset");
     setKeyStrokes(0);
     setWrongLetters(0);
     setWords(pickRandomWords(allWords, gameMode));
@@ -114,7 +110,7 @@ export const ReactType = ({ randomWords }) => {
   // checks if game is over when user types a word
   useEffect(() => {
     if (wordCount === gameMode) {
-      setGameState({ ...gameState, isGameOver: true, isGameStarted: false });
+      setGameState("runIsOver");
     }
   }, [wordCount]);
 
@@ -165,7 +161,7 @@ export const ReactType = ({ randomWords }) => {
           value={userInput}
           onKeyDown={handleKeyDown}
           onChange={handleOnChange}
-          disabled={gameState.isGameOver ? true : false}
+          disabled={gameState === "runIsOver" ? true : false}
         />
         <Timer
           gameMode={gameMode}
