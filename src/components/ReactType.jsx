@@ -18,7 +18,6 @@ export const ReactType = ({ randomWords }) => {
   const [highlighter, setHighlighter] = useState({});
   const [gameState, setGameState] = useState("");
   const focusRef = useRef(null);
-  const scrollRef = useRef(null);
 
   const checkIsWordCorrect = (input, array, count) => {
     const changedWords = array.map((item, itemID) => {
@@ -138,11 +137,12 @@ export const ReactType = ({ randomWords }) => {
           ))}
         </span>
       </div>
-      <div ref={scrollRef} className="word-container">
+      <div className="word-container">
         <Highlighter
           highlighter={highlighter}
           gameMode={gameMode}
           wordCount={wordCount}
+          words={words}
         />
         {words.map((word, wordID) => (
           <Word
@@ -151,6 +151,7 @@ export const ReactType = ({ randomWords }) => {
             wordID={wordID}
             wordCount={wordCount}
             wordHighlighter={highlighterPosition}
+            input={userInput}
           />
         ))}
       </div>
