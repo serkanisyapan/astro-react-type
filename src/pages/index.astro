@@ -8,6 +8,6 @@ const randomWords = pickRandomWords(allWords, 30);
 const showFooter = true;
 ---
 
-<BaseLayout pageTite={pageTitle} showFooter={showFooter}>
+<BaseLayout pageTitle={pageTitle} showFooter={showFooter}>
   <ReactType client:load randomWords={randomWords} />
 </BaseLayout>

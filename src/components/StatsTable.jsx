@@ -65,7 +65,7 @@ export const StatsTable = () => {
         </div>
       ) : (
         <div style={{ margin: "auto", fontSize: "24px" }}>
-          There no records. Do some{" "}
+          There are no records. Do some{" "}
           <a style={{ color: "white" }} href="/">
             runs
           </a>{" "}
