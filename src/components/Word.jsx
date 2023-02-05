@@ -4,18 +4,21 @@ import { checkLetterColor } from "../utils/checkLetterColor";
 import "../styles/Word.css";
 
 export const Word = ({ word, wordID, wordCount, wordHighlighter, input }) => {
+  const getWordChars = word.text.split("");
   const scrollToWord = useRef(null);
 
   useEffect(() => {
-    const backgroundColor = scrollToWord.current.style.backgroundColor;
+    const backgroundColor =
+      scrollToWord.current.children[input.length]?.style.backgroundColor;
     if (backgroundColor === "rgba(0, 0, 0, 0.01)") {
       scrollToWord.current.scrollIntoView({
         behavior: "smooth",
       });
-      const { offsetTop, offsetLeft, offsetWidth } = scrollToWord.current;
-      wordHighlighter(offsetTop, offsetLeft, offsetWidth, 49);
+      const { offsetTop, offsetLeft, offsetWidth } =
+        scrollToWord.current.children[input.length];
+      wordHighlighter(offsetTop, offsetLeft, offsetWidth, 29);
     }
-  }, [wordCount, word]);
+  }, [input, word]);
 
   return (
     <span
@@ -26,14 +29,18 @@ export const Word = ({ word, wordID, wordCount, wordHighlighter, input }) => {
         backgroundColor: wordCount === wordID ? "rgba(0, 0, 0, 0.01)" : "",
       }}
     >
-      {word.text.split("").map((letter, letterID) => (
+      {getWordChars.map((char, charID) => (
         <span
           style={{
-            color: checkLetterColor(wordID, letterID, wordCount, input, letter),
+            color: checkLetterColor(wordID, charID, wordCount, input, char),
+            backgroundColor:
+              wordCount === wordID && charID === input.length
+                ? "rgba(0, 0, 0, 0.01)"
+                : "",
           }}
-          key={letterID}
+          key={charID}
         >
-          {letter}
+          {char}
         </span>
       ))}
     </span>

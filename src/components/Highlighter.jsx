@@ -7,10 +7,9 @@ export const Highlighter = ({ highlighter, wordCount, gameMode }) => {
         height: highlighter.height + "px",
         width: highlighter.width + "px",
         position: "absolute",
-        backgroundColor:
-          wordCount === gameMode ? "" : "rgba(255, 228, 23, 0.400)",
+        backgroundColor: wordCount === gameMode ? "" : "rgb(255, 228, 23, 0.5)",
         borderRadius: "3px",
-        transition: "all 0.2s ease-in-out",
+        transition: "all 0.2s",
       }}
     ></div>
   );
