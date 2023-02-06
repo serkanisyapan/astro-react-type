@@ -8,25 +8,25 @@ export const Word = ({ word, wordID, wordCount, wordHighlighter, input }) => {
   const scrollToWord = useRef(null);
 
   useEffect(() => {
+    const inputLength = input.length;
     const backgroundColor =
-      scrollToWord.current.children[input.length]?.style.backgroundColor;
+      scrollToWord.current.children[inputLength]?.style.backgroundColor;
     if (backgroundColor === "rgba(0, 0, 0, 0.01)") {
       scrollToWord.current.scrollIntoView({
         behavior: "smooth",
       });
-      const { offsetTop, offsetLeft, offsetWidth } =
-        scrollToWord.current.children[input.length];
-      wordHighlighter(offsetTop, offsetLeft, offsetWidth, 29);
+      const { offsetTop, offsetLeft } =
+        scrollToWord.current.children[inputLength];
+      wordHighlighter(offsetTop, offsetLeft, 2, 29);
     }
   }, [input, word]);
 
   return (
-    <span
+    <div
       className="words"
       ref={scrollToWord}
       style={{
         color: checkWordColor(word),
-        backgroundColor: wordCount === wordID ? "rgba(0, 0, 0, 0.01)" : "",
       }}
     >
       {getWordChars.map((char, charID) => (
@@ -43,6 +43,19 @@ export const Word = ({ word, wordID, wordCount, wordHighlighter, input }) => {
           {char}
         </span>
       ))}
-    </span>
+      <span
+        style={{
+          display: "inline-flex",
+          width: "2px",
+          backgroundColor:
+            wordCount === wordID &&
+            input.length === scrollToWord.current?.children?.length - 1
+              ? "rgba(0, 0, 0, 0.01)"
+              : "",
+        }}
+      >
+        {" "}
+      </span>
+    </div>
   );
 };

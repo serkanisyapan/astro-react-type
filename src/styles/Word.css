@@ -1,11 +1,8 @@
 .words {
+  display: flex;
   font-size: 24px;
   letter-spacing: 2px;
-  line-height: 2;
   margin-right: 10px;
   font-weight: 500;
-}
-
-.letters {
-  transition: all 0.2s ease;
+  margin-bottom: 20px;
 }
