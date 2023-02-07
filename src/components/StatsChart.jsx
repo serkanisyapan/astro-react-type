@@ -1,8 +1,28 @@
 import { Chart as ChartJS } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
+import { calcAverageWPM } from "../utils/calculateAverageWPM";
 
 export const StatsChart = ({ data }) => {
+  const averageWPM = calcAverageWPM(data);
+  const averageWPMLine = {
+    id: "averageWPMLine",
+    beforeDatasetsDraw: (chart) => {
+      console.log(chart);
+      const {
+        ctx,
+        chartArea: { top, right, bottom, left, width, height },
+        scales: { x, netWPM },
+      } = chart;
+      ctx.save();
+      // draw horizontal line
+      ctx.strokeStyle = "#e160e8";
+      ctx.setLineDash([5, 5]);
+      ctx.strokeRect(left, netWPM.getPixelForValue(averageWPM), width, 0);
+      ctx.restore();
+    },
+  };
+
   return (
     <div style={{ width: "80%", margin: "80px auto" }}>
       <Line
@@ -16,6 +36,7 @@ export const StatsChart = ({ data }) => {
           },
           tension: 0.3,
           plugins: {
+            averageWPMLine: {},
             tooltip: {
               padding: 7,
               bodySpacing: 5,
@@ -33,7 +54,9 @@ export const StatsChart = ({ data }) => {
                     "\n" +
                     `seconds: ${grabData.seconds}` +
                     "\n" +
-                    `wrongChars:${grabData.wrongLetters}`;
+                    `wrongChars:${grabData.wrongLetters}` +
+                    "\n" +
+                    `avgWPM:${averageWPM}`;
                   return label;
                 },
                 beforeFooter: function (context) {
@@ -82,6 +105,7 @@ export const StatsChart = ({ data }) => {
             },
           ],
         }}
+        plugins={[averageWPMLine]}
       />
     </div>
   );
