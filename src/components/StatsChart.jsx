@@ -1,5 +1,4 @@
 import { Chart as ChartJS } from "chart.js/auto";
-import { Chart } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
 import { calcAverageWPM } from "../utils/calculateAverageWPM";
 
@@ -8,12 +7,13 @@ export const StatsChart = ({ data }) => {
   const averageWPMLine = {
     id: "averageWPMLine",
     beforeDatasetsDraw: (chart) => {
-      console.log(chart);
       const {
         ctx,
         chartArea: { top, right, bottom, left, width, height },
         scales: { x, netWPM },
       } = chart;
+      const dataLength = data.length === 1;
+      if (dataLength) return;
       ctx.save();
       // draw horizontal line
       ctx.strokeStyle = "#e160e8";
