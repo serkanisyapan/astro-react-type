@@ -1,5 +1,22 @@
-import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+} from "chart.js";
+
+ChartJS.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+);
 import { calcAverageWPM } from "../utils/calculateAverageWPM";
 
 export const StatsChart = ({ data }) => {
@@ -38,7 +55,7 @@ export const StatsChart = ({ data }) => {
           plugins: {
             averageWPMLine: {},
             tooltip: {
-              padding: 7,
+              padding: 10,
               bodySpacing: 5,
               bodyFont: {
                 size: 14,
@@ -70,7 +87,11 @@ export const StatsChart = ({ data }) => {
             },
             title: {
               display: true,
-              text: "All Runs",
+              text: "Stats for All Runs",
+              color:"white",
+              font:{
+                size: 15
+              }
             },
           },
           scales: {
@@ -81,12 +102,23 @@ export const StatsChart = ({ data }) => {
             },
             netWPM: {
               axis: "y",
+              color:"white",
               min: 0,
               beginAtZero: true,
               position: "left",
+              ticks:{
+                color:"white",
+                font:{
+                  size:15
+                }
+              },
               title: {
                 display: true,
                 text: "Words Per Minute",
+                color: "white",
+                font:{
+                  size:15
+                }
               },
             },
           },
