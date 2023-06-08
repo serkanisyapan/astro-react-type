@@ -6,6 +6,7 @@ import { pickRandomWords } from "../utils/pickRandomWords.js";
 import "../styles/App.css";
 import { WordContainer } from "./WordContainer.jsx";
 import { InputContainer } from "./InputContainer.jsx";
+import { useCheckWords } from "../hooks/useCheckWords.jsx";
 
 export const ReactType = ({ randomWords }) => {
   const [words, setWords] = useState(randomWords);
@@ -16,36 +17,12 @@ export const ReactType = ({ randomWords }) => {
   const [wrongLetters, setWrongLetters] = useState(0);
   const [gameState, setGameState] = useState("");
   const focusRef = useRef(null);
-
-  const checkIsWordCorrect = (input, array, count) => {
-    const changedWords = array.map((item, itemID) => {
-      if (count === itemID) {
-        if (input === array[count].text) {
-          return { ...item, isCorrect: true };
-        } else {
-          return { ...item, isCorrect: false };
-        }
-      }
-      return item;
-    });
-    setWords(changedWords);
-    setWordCount((prev) => prev + 1);
-    setUserInput("");
-  };
-
-  const checkIsLettersCorrect = (input, array, count) => {
-    let typedValue = input.slice("");
-    let typedWord = array[count].text.slice("");
-    for (let i = 0; i < typedWord.length; i++) {
-      if (typedValue[i] && typedValue[i] !== typedWord[i]) {
-        setWrongLetters((prev) => prev + 1);
-      }
-    }
-    if (typedValue.length > typedWord.length) {
-      let extraWords = typedValue.slice(typedWord.length).length;
-      setKeyStrokes((prev) => prev - extraWords);
-    }
-  };
+  const { checkIsLettersCorrect, checkIsWordCorrect } = useCheckWords({setKeyStrokes, 
+    setWordCount, 
+    setWords, 
+    setUserInput, 
+    setWrongLetters
+  })
 
   const handleKeyDown = (event) => {
     if (
