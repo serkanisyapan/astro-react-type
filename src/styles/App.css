@@ -12,12 +12,13 @@ body {
   justify-content: center;
   align-items: center;
   margin: auto;
-  max-width: 70%;
+  width: 1195px;
 }
 
 .word-container {
   margin-bottom: 20px;
-  max-height: 100px;
+  width: 1195px;
+  height: 100px;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
