@@ -1,4 +1,4 @@
-export const Highlighter = ({ highlighter, wordCount, gameMode }) => {
+export const Highlighter = ({ wordCount, gameMode, highlighter }) => {
   return (
     <div
       style={{

@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Word } from "./Word.jsx";
-import { Timer } from "./Timer.jsx";
-import { Highlighter } from "./Highlighter.jsx";
 import { NewRunButton } from "./NewRunButton.jsx";
 import { allWords } from "../data/words.js";
 import { gameModes } from "../data/gameModes.js";
 import { pickRandomWords } from "../utils/pickRandomWords.js";
 import "../styles/App.css";
+import { WordContainer } from "./WordContainer.jsx";
+import { InputContainer } from "./InputContainer.jsx";
 
 export const ReactType = ({ randomWords }) => {
   const [words, setWords] = useState(randomWords);
@@ -15,7 +14,6 @@ export const ReactType = ({ randomWords }) => {
   const [keyStrokes, setKeyStrokes] = useState(0);
   const [gameMode, setGameMode] = useState(30);
   const [wrongLetters, setWrongLetters] = useState(0);
-  const [highlighter, setHighlighter] = useState({});
   const [gameState, setGameState] = useState("");
   const focusRef = useRef(null);
 
@@ -92,10 +90,6 @@ export const ReactType = ({ randomWords }) => {
     newRun();
   };
 
-  const highlighterPosition = (top, left, width, height, scrollY) => {
-    setHighlighter({ top, left, width, height, scrollY });
-  };
-
   // keeps track of how many word typed
   const typedWordCount = `${wordCount}/${words.length}`;
 
@@ -137,40 +131,22 @@ export const ReactType = ({ randomWords }) => {
           ))}
         </span>
       </div>
-      <div className="word-container">
-        <Highlighter
-          highlighter={highlighter}
-          gameMode={gameMode}
-          wordCount={wordCount}
-          words={words}
-        />
-        {words.map((word, wordID) => (
-          <Word
-            key={wordID}
-            word={word}
-            wordID={wordID}
-            wordCount={wordCount}
-            wordHighlighter={highlighterPosition}
-            input={userInput}
-          />
-        ))}
-      </div>
-      <div className="input-container">
-        <input
-          ref={focusRef}
-          className="word-input"
-          value={userInput}
-          onKeyDown={handleKeyDown}
-          onChange={handleOnChange}
-          disabled={gameState === "runIsOver" ? true : false}
-        />
-        <Timer
-          gameMode={gameMode}
-          keyStrokes={keyStrokes}
-          gameState={gameState}
-          wrongLetters={wrongLetters}
-        />
-      </div>
+      <WordContainer 
+          gameMode={gameMode} 
+          wordCount={wordCount} 
+          words={words} 
+          userInput={userInput}
+      />
+      <InputContainer 
+        focusRef={focusRef} 
+        userInput={userInput} 
+        handleKeyDown={handleKeyDown} 
+        handleOnChange={handleOnChange}
+        gameState={gameState}
+        gameMode={gameMode}
+        keyStrokes={keyStrokes}
+        wrongLetters={wrongLetters}
+      />
       <NewRunButton newRun={newRun} />
     </div>
   );
