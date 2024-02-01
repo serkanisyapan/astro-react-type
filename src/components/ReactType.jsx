@@ -17,12 +17,13 @@ export const ReactType = ({ randomWords }) => {
   const [wrongLetters, setWrongLetters] = useState(0);
   const [gameState, setGameState] = useState("");
   const focusRef = useRef(null);
-  const { checkIsLettersCorrect, checkIsWordCorrect } = useCheckWords({setKeyStrokes, 
-    setWordCount, 
-    setWords, 
-    setUserInput, 
-    setWrongLetters
-  })
+  const { checkIsLettersCorrect, checkIsWordCorrect } = useCheckWords({
+    setKeyStrokes,
+    setWordCount,
+    setWords,
+    setUserInput,
+    setWrongLetters,
+  });
 
   const handleKeyDown = (event) => {
     if (
@@ -36,9 +37,11 @@ export const ReactType = ({ randomWords }) => {
 
     if (event.key === "Backspace") {
       if (keyStrokes === 0) return;
+      if (userInput) setKeyStrokes((prev) => prev - userInput.length);
       setKeyStrokes((prev) => prev - 1);
     } else {
-      setKeyStrokes((prev) => prev + 1);
+      if (event.keyCode >= 65 && event.keyCode <= 90)
+        setKeyStrokes((prev) => prev + 1);
     }
   };
 
@@ -108,16 +111,16 @@ export const ReactType = ({ randomWords }) => {
           ))}
         </span>
       </div>
-      <WordContainer 
-          gameMode={gameMode} 
-          wordCount={wordCount} 
-          words={words} 
-          userInput={userInput}
+      <WordContainer
+        gameMode={gameMode}
+        wordCount={wordCount}
+        words={words}
+        userInput={userInput}
       />
-      <InputContainer 
-        focusRef={focusRef} 
-        userInput={userInput} 
-        handleKeyDown={handleKeyDown} 
+      <InputContainer
+        focusRef={focusRef}
+        userInput={userInput}
+        handleKeyDown={handleKeyDown}
         handleOnChange={handleOnChange}
         gameState={gameState}
         gameMode={gameMode}
