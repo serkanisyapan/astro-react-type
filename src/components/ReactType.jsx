@@ -24,7 +24,6 @@ export const ReactType = ({ randomWords }) => {
     setUserInput,
     setWrongLetters,
   });
-  console.log(runLength);
 
   const handleKeyDown = (event) => {
     const wordLength = words[wordCount].text.length;
