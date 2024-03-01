@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { NewRunButton } from "./NewRunButton.jsx";
 import { allWords } from "../data/words.js";
 import { gameModes } from "../data/gameModes.js";
@@ -24,8 +24,11 @@ export const ReactType = ({ randomWords }) => {
     setUserInput,
     setWrongLetters,
   });
+  console.log(runLength);
 
   const handleKeyDown = (event) => {
+    const wordLength = words[wordCount].text.length;
+    const inputLength = userInput.length;
     if (
       (event.keyCode === 32 || event.key === " " || event.code === "Space") &&
       userInput.trim().length > 0
@@ -37,11 +40,14 @@ export const ReactType = ({ randomWords }) => {
 
     if (event.key === "Backspace") {
       if (keyStrokes === 0) return;
-      if (userInput) setKeyStrokes((prev) => prev - userInput.length);
       setKeyStrokes((prev) => prev - 1);
     } else {
-      if (event.keyCode >= 65 && event.keyCode <= 90)
-        setKeyStrokes((prev) => prev + 1);
+      if (
+        (event.keyCode >= 65 && event.keyCode <= 90) ||
+        event.code === "Space"
+      )
+        if (inputLength > wordLength) return;
+      setKeyStrokes((prev) => prev + 1);
     }
   };
 
